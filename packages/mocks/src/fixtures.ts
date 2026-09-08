@@ -1,0 +1,7 @@
+import { type z } from 'zod';
+import { CaseSummary,Appointment,CounselorCase,AuthorityTask } from '@haven/contracts';
+export const caseRecord:z.infer<typeof CaseSummary>={id:'case-demo-001',victimId:'victim-demo-001',preferredName:'Riya',docket:'DEMO-NHAA-001',district:'Pune',state:'Maharashtra',stage:'Investigation'};
+export const appointment:z.infer<typeof Appointment>={id:'appointment-demo-001',victimId:caseRecord.victimId,counselorName:'Demo Counselor',startsAt:'2026-09-10T09:00:00.000Z',mode:'VOICE',status:'SCHEDULED'};
+export const counselorCase:z.infer<typeof CounselorCase>={case:caseRecord,priority:'C2',reason:'Difficulty sleeping following reported intimidation. Current immediate safety has not been assessed.',evidence:[{id:'evidence-demo-001',statement:'I have been finding it difficult to sleep since the threatening calls.',recordedAt:'2026-09-08T08:30:00.000Z',source:'SELF_REPORT',uncertainty:'Current threat immediacy requires clarification.'}]};
+export const initialAuthorityTask:z.infer<typeof AuthorityTask>={case:caseRecord,task:{id:'task-demo-001',caseId:caseRecord.id,title:'Review reported intimidation',priority:'A1',status:'SENT',reason:'Repeated threats were reported. A protection review is requested; current location safety is unresolved.',owner:'Demo district protection desk',dueAt:'2026-09-08T10:00:00.000Z'},recommendation:{id:'recommendation-demo-001',caseId:caseRecord.id,title:'Protection review',reason:'Clarify reported threats and consider appropriate protection measures.',status:'AWAITING_REVIEW',serviceAvailable:null}};
+

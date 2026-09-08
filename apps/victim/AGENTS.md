@@ -10,7 +10,7 @@ This directory is the intended new victim application. Its presence does not mea
 
 ## Standalone instructions and references
 
-This new repository initially contains only two AGENTS.md files. The implementation requirements below are the self-contained starting contract. The previous Haven-Final repository contains the detailed design documents and donor frontend; those files are not included here and are not runtime dependencies.
+This repository now includes the shared frontend foundation. Read the root README.md and docs/frontend-conventions/README.md for setup and actual implemented scope. The implementation requirements below remain the product contract. The previous Haven-Final repository contains detailed design documents and donor frontend; those files are optional references, not runtime dependencies.
 
 If the team provides a legacy checkout, consult NHAA_VICTIM_EXPERIENCE_DESIGN.md for the victim journey, NHAA_PROFESSIONAL_PORTAL_DESIGN.md for roles and access, and NHAA_ENGINE_FEATURE_GUIDE.md for the meaning of analytical outputs. Do not invent paths or block routine screen implementation because these optional references are absent. Ask for the reference only when a consequential unresolved product decision requires it.
 
@@ -118,7 +118,7 @@ Urgent scenarios must be clearly labeled as simulation. Never initiate an actual
 
 Before feature work proceeds in parallel, one nominated integration owner scaffolds the pnpm workspace, both Vite application shells, shared theme tokens, routing entry points, contracts, API client and mock fixtures in one foundation pull request. Other contributors may prepare component designs while this is underway, but must not create competing scaffolds. Merge that foundation first; everyone then starts feature branches from the same main branch.
 
-Only these two instruction files are supplied initially. Packages, scripts, routes and feature directories described here are planned; do not claim they already exist.
+The workspace, both application shells, shared packages, initial synthetic handlers and checks are now implemented. Run the existing foundation rather than creating a new scaffold. Feature areas beyond the README's working examples remain to be implemented.
 
 Each teammate uses their own clone. Person 1 owns apps/victim; Person 2 owns apps/professional/src/features/counselor; Person 3 owns apps/professional/src/features/authorities. Name one of the three as integration owner for shared files; this does not require a fourth person.
 

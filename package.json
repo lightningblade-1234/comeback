@@ -1,0 +1,29 @@
+{
+  "name": "comeback",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@11.19.0",
+  "engines": {
+    "node": ">=22.12.0 <25"
+  },
+  "scripts": {
+    "dev": "pnpm --parallel --filter @haven/victim --filter @haven/professional dev",
+    "dev:victim": "pnpm --filter @haven/victim dev",
+    "dev:professional": "pnpm --filter @haven/professional dev",
+    "build": "pnpm --filter @haven/victim build && pnpm --filter @haven/professional build",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "check": "pnpm typecheck && pnpm lint && pnpm test && pnpm build"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.1",
+    "@eslint/js": "^9.39.0",
+    "eslint": "^9.39.0",
+    "typescript-eslint": "^8.56.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "globals": "^16.5.0",
+    "typescript": "~5.9.3",
+    "vitest": "^3.2.4"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "extends": "@haven/config/tsconfig",
+  "include": [
+    "src"
+  ]
+}
