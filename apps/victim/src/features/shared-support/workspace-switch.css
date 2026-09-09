@@ -1,0 +1,4 @@
+.victim-workspace-switch{display:flex;gap:.2rem;padding:.2rem;border:1px solid var(--border);border-radius:.75rem;background:rgba(8,20,36,.38)}
+.victim-workspace-switch button{min-height:2.2rem;padding:.35rem .65rem;border:0;border-radius:.55rem;background:transparent;color:var(--muted);font-size:.78rem;font-weight:650;cursor:pointer}
+.victim-workspace-switch button.active,.victim-workspace-switch button:hover{background:rgba(102,252,241,.14);color:var(--text)}
+@media(max-width:560px){.victim-workspace-switch{width:100%;justify-content:stretch}.victim-workspace-switch button{flex:1;white-space:nowrap}}

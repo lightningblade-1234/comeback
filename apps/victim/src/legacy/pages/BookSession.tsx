@@ -178,7 +178,7 @@ export const BookSession: React.FC = () => {
 
   if (isLoading) {
     return (
-      <DashboardLayout userType="student">
+      <DashboardLayout userType="victim">
         <div className="space-y-8">
           <ShimmerCard className="h-32" />
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -194,7 +194,7 @@ export const BookSession: React.FC = () => {
   if (step === 4) {
     const selectedCounselorData = counselors.find(c => c.id === bookingData.counselorId);
     return (
-      <DashboardLayout userType="student">
+      <DashboardLayout userType="victim">
         <div className="max-w-2xl mx-auto animate-fade-in">
           <Card className="glass-card border-0 text-center">
             <CardHeader className="space-y-6">
@@ -258,7 +258,7 @@ export const BookSession: React.FC = () => {
   }
 
   return (
-    <DashboardLayout userType="student" onCommunityToggle={() => setIsCommunityMode(true)}>
+    <DashboardLayout userType="victim" onCommunityToggle={() => setIsCommunityMode(true)}>
       <div className="space-y-8 animate-fade-in">
         {/* Header with Progress */}
         <div className="glass-card p-8 text-center tilt-card">

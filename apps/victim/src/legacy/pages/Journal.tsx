@@ -78,7 +78,7 @@ export const Journal: React.FC = () => {
   }
 
   return (
-    <DashboardLayout userType="student" onCommunityToggle={() => setIsCommunityMode(true)}>
+    <DashboardLayout userType="victim" onCommunityToggle={() => setIsCommunityMode(true)}>
       <div className="space-y-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="journal-intro glass-card">

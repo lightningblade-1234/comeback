@@ -267,7 +267,7 @@ export const ResourcesAndSelfCare: React.FC = () => {
 
   if (isLoading) {
     return (
-      <DashboardLayout userType="student">
+      <DashboardLayout userType="victim">
         <div className="space-y-8">
           <ShimmerCard className="h-32" />
           <div className="grid md:grid-cols-3 gap-6">
@@ -285,7 +285,7 @@ export const ResourcesAndSelfCare: React.FC = () => {
   }
 
   return (
-    <DashboardLayout userType="student" onCommunityToggle={() => setIsCommunityMode(true)}>
+    <DashboardLayout userType="victim" onCommunityToggle={() => setIsCommunityMode(true)}>
       <div className="space-y-8 animate-fade-in">
         {/* Header */}
         <div className="glass-card p-8 text-center tilt-card">

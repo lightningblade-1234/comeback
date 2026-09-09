@@ -17,10 +17,11 @@ import { cn } from '@/lib/utils';
 interface SidebarProps {
   isOpen: boolean;
   onToggle: () => void;
-  userType: 'student' | 'admin';
+  userType: 'student' | 'victim' | 'admin';
+  displayName?: string;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle, userType }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle, userType, displayName }) => {
   const navigate = useNavigate();
 
   const studentItems = [
@@ -30,13 +31,23 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle, userType }) 
     { title: 'Book Session', url: '/support', icon: Calendar },
   ];
 
+  const victimItems = [
+    { title: 'Home', url: '/home', icon: Home },
+    { title: 'Talk', url: '/talk', icon: Heart },
+    { title: 'My Support', url: '/support', icon: Calendar },
+    { title: 'Journal', url: '/journal', icon: BookOpen },
+    { title: 'More', url: '/more', icon: BookOpen },
+  ];
+
   const adminItems = [
     { title: 'Dashboard', url: '/admin-dashboard', icon: Home },
     { title: 'Results & Alerts', url: '/admin-dashboard/results', icon: BarChart3 },
     { title: 'Student Requests', url: '/admin-dashboard/requests', icon: Users },
   ];
 
-  const items = userType === 'student' ? studentItems : adminItems;
+  const items = userType === 'victim' ? victimItems : userType === 'student' ? studentItems : adminItems;
+  const profileLabel = userType === 'victim' ? (displayName || 'Haven member') : userType === 'student' ? 'Student User' : 'Admin User';
+  const profileDescription = userType === 'victim' ? 'Your private support space' : 'Welcome back!';
 
   const handleLogout = () => {
     navigate('/');
@@ -113,8 +124,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onToggle, userType }) 
                 <div className="w-12 h-12 bg-gradient-primary rounded-full mx-auto mb-2 flex items-center justify-center">
                   <Users className="w-6 h-6 text-white" />
                 </div>
-                <p className="font-medium text-sm">{userType === 'student' ? 'Student' : 'Admin'} User</p>
-                <p className="text-xs text-muted-foreground">Welcome back!</p>
+                <p className="font-medium text-sm">{profileLabel}</p>
+                <p className="text-xs text-muted-foreground">{profileDescription}</p>
               </div>
             )}
             

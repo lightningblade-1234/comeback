@@ -86,7 +86,7 @@ export const PersonalCare: React.FC = () => {
   }
 
   return (
-    <DashboardLayout userType="student" onCommunityToggle={() => setIsCommunityMode(true)}>
+    <DashboardLayout userType="victim" onCommunityToggle={() => setIsCommunityMode(true)}>
       <div className="space-y-6 animate-fade-in max-w-4xl mx-auto">
         {/* Header */}
         <div className="glass-card p-6 text-center tilt-card">
