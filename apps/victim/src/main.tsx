@@ -12,7 +12,7 @@ async function start(){
   ReactDOM.createRoot(document.getElementById('root')!).render(<main className="main"><h1>Backend connection not configured</h1><p>This foundation runs with mock APIs. Enable mocks to explore it.</p></main>);return;
  }
  const {worker}=await import('@haven/mocks/browser');
- await worker.start({onUnhandledRequest(request,print){if(new URL(request.url).pathname.startsWith('/api/'))print.error();}});
+ await worker.start({serviceWorker:{url:'/mockServiceWorker.js'},onUnhandledRequest(request,print){if(new URL(request.url).pathname.startsWith('/api/'))print.error();}});
  ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><QueryClientProvider client={queryClient}><BrowserRouter><App/></BrowserRouter></QueryClientProvider></React.StrictMode>);
 }
 start().catch(()=>{document.getElementById('root')!.textContent='The demo could not start. Reload the page or check that service workers are available.';});

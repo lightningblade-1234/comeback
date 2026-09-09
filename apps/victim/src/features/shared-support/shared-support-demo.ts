@@ -1,0 +1,25 @@
+export type MembershipState='NOT_REQUESTED'|'DRAFT'|'PENDING'|'APPROVED'|'NOT_APPROVED'|'WITHDRAWN'|'LEFT';
+export type MentorState='NONE'|'DRAFT'|'PENDING'|'PROPOSED'|'ACTIVE'|'DIFFERENT_MATCH'|'WITHDRAWN'|'ENDED'|'UNAVAILABLE';
+
+export type Circle={id:string;name:string;description:string;language:string;restriction?:string;moderation:string;facilitator:string;};
+export type Discussion={id:string;title:string;author:string;role:'Facilitator'|'Member';body:string;notice?:string;state:'OPEN'|'LOCKED'|'AWAITING'|'REMOVED';replies:{id:string;author:string;body:string;role?:'Facilitator'|'Member'}[]};
+
+export const circles:Circle[]=[
+ {id:'safety',name:'Rebuilding safety and confidence',description:'A facilitated circle for adults seeking support after sexual violence. You can participate without describing the incident.',language:'Hindi',restriction:'Adults affected by sexual violence. Any additional access restrictions are shown before approval.',moderation:'Availability not provided.',facilitator:'Kavya'},
+ {id:'loss',name:'Living with loss',description:'A circle for people grieving someone killed in violence.',language:'Hindi',moderation:'Availability not provided.',facilitator:'Meera'},
+ {id:'daily-life',name:'Adjusting to changes in daily life',description:'Support around daily routines, independence and relationships after serious injury.',language:'Hindi',moderation:'Availability not provided.',facilitator:'Rohan'},
+ {id:'home',name:'Rebuilding after loss of home',description:'Support around disruption, displacement and rebuilding daily life.',language:'Hindi',moderation:'Availability not provided.',facilitator:'Kavya'},
+ {id:'proceedings',name:'Managing uncertainty during proceedings',description:'A circle for the emotional strain of being involved in a case. Reports of threats or immediate danger use a separate help route.',language:'Hindi',moderation:'Availability not provided.',facilitator:'Meera'},
+ {id:'exclusion',name:'Finding support through exclusion and discrimination',description:'A facilitated circle for people affected by caste-based discrimination, violence or social exclusion.',language:'Hindi',moderation:'Availability not provided.',facilitator:'Rohan'},
+ {id:'close-support',name:'Supporting someone close to you',description:'A separate circle for adult relatives and caregivers supporting someone affected by violence.',language:'Hindi',restriction:'For adult relatives and caregivers.',moderation:'Availability not provided.',facilitator:'Kavya'}
+];
+
+export const safetyDiscussion:Discussion={id:'control-day',title:'What helps you feel more in control of your day?',author:'Kavya',role:'Facilitator',body:'You might share a small routine, a boundary you have set, or something you would like support with. Reading without replying is welcome.',state:'OPEN',replies:[{id:'walk',author:'MorningLight',body:'I have started taking a short walk with someone I trust. It helps me structure the morning.'},{id:'checklist',author:'SteadySteps',body:'A short checklist helps me decide what I can do today.'}]};
+export const lockedDiscussion:Discussion={id:'boundaries',title:'Small boundaries that make daily life easier',author:'Kavya',role:'Facilitator',body:'This discussion has been locked by a moderator.',state:'LOCKED',replies:[]};
+
+export const supportTopics=['Coping with fear and uncertainty.','Managing the emotional strain of case proceedings.','Living with loss and grief.','Adjusting to injury or changes in daily life.','Rebuilding after displacement or loss of home.','Dealing with discrimination and social exclusion.','Supporting an affected family member.','Speaking with a trained peer mentor.','I’m unsure and would like help choosing.'];
+
+export const mentorFixture={name:'Asha',role:'Trained peer mentor',languages:'Hindi and English',areas:'rebuilding confidence, isolation and everyday routines after sexual violence.',intro:'I can listen, share relevant experience and help you think through small next steps. You do not need to tell me the details of what happened.',availability:'Tuesdays and Thursdays, 4–6 PM',messages:[{from:'Asha',body:'Hello QuietRiver. Would you prefer to talk about everyday routines, feeling isolated, or something else? You do not need to explain the incident.'},{from:'QuietRiver',body:'Everyday routines would feel helpful.'}]};
+
+export type DemoState={enrolled:boolean;displayName:string;language:string;preferences:string[];membership:MembershipState;mentor:MentorState;postDraft:string;postTitle:string;postNotice:string;postPending:boolean;messageDraft:string;messageError:boolean;blocked:boolean;reported:boolean;coordinatorUnavailable:boolean;disconnected:boolean;noCircles:boolean;};
+export function createDemoState():DemoState{return {enrolled:false,displayName:'QuietRiver',language:'Hindi',preferences:[],membership:'NOT_REQUESTED',mentor:'NONE',postDraft:'',postTitle:'',postNotice:'',postPending:false,messageDraft:'',messageError:false,blocked:false,reported:false,coordinatorUnavailable:false,disconnected:false,noCircles:false};}
