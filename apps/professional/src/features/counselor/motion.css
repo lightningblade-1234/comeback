@@ -1,0 +1,126 @@
+/* Motion and Animation Layer Styles for Counselor Workbench */
+
+/* C0 Crisis Beacon subtle pulse */
+@keyframes c0-beacon {
+  0% {
+    box-shadow: 0 0 0 0 rgba(197, 34, 31, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(197, 34, 31, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(197, 34, 31, 0);
+  }
+}
+
+.c0-active-beacon {
+  animation: c0-beacon 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+
+/* Modal Overlay & Backdrop */
+.motion-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.motion-modal-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 520px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+/* Hold-to-confirm radial button container */
+.hold-confirm-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.65rem 1.25rem;
+  background: #fff4e5;
+  color: #b06000;
+  border: 1px solid #ffdfb3;
+  border-radius: 10px;
+  font-weight: 650;
+  font-size: 0.9rem;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  transition: background 150ms ease-out, border-color 150ms ease-out;
+  overflow: hidden;
+}
+
+.hold-confirm-button:hover {
+  background: #ffe8cc;
+}
+
+.hold-confirm-button:focus-visible {
+  outline: 3px solid #b06000;
+  outline-offset: 3px;
+}
+
+.hold-confirm-button.is-holding {
+  background: #ffe0b2;
+  border-color: #f57c00;
+}
+
+/* SVG Radial Progress Ring */
+.hold-ring-svg {
+  width: 20px;
+  height: 20px;
+  transform: rotate(-90deg);
+  flex-shrink: 0;
+}
+
+.hold-ring-bg {
+  stroke: rgba(176, 96, 0, 0.2);
+  stroke-width: 3;
+}
+
+.hold-ring-fill {
+  stroke: #b06000;
+  stroke-width: 3;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 40ms linear;
+}
+
+/* Success flash highlight */
+@keyframes success-flash {
+  0% {
+    box-shadow: 0 0 0 0 rgba(18, 93, 135, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(18, 93, 135, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(18, 93, 135, 0);
+  }
+}
+
+.mutation-flash {
+  animation: success-flash 600ms ease-out forwards;
+}
+
+/* Reduced motion overrides */
+@media (prefers-reduced-motion: reduce) {
+  .c0-active-beacon,
+  .mutation-flash {
+    animation: none !important;
+  }
+  .motion-modal-backdrop {
+    backdrop-filter: none !important;
+  }
+}
