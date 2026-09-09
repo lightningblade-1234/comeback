@@ -1,5 +1,5 @@
 import { http,HttpResponse,delay } from 'msw';
-import { caseRecord,appointment,counselorCase,initialAuthorityTask } from './fixtures';
+import { caseRecord,appointment,counselorCase,initialAuthorityTask,districtAnalytics,stateAnalytics,nationalAnalytics } from './fixtures';
 let authorityTask=structuredClone(initialAuthorityTask);
 export function resetFixtures(){authorityTask=structuredClone(initialAuthorityTask);}
 const roleOf=(request:Request)=>request.headers.get('X-Demo-Role');
@@ -15,6 +15,9 @@ export const handlers=[
   authorityTask={...authorityTask,task:{...authorityTask.task,status:'ACKNOWLEDGED'}};
   return HttpResponse.json(authorityTask.task);
  }),
+ http.get('*/api/authority/district-analytics',({request})=>{if(roleOf(request)!=='district')return forbidden();return HttpResponse.json(districtAnalytics);}),
+ http.get('*/api/authority/state-analytics',({request})=>{if(roleOf(request)!=='state')return forbidden();return HttpResponse.json(stateAnalytics);}),
+ http.get('*/api/authority/national-analytics',({request})=>{if(roleOf(request)!=='national')return forbidden();return HttpResponse.json(nationalAnalytics);}),
  http.get('*/api/monitoring',({request})=>{
   const role=roleOf(request);if(role!=='state'&&role!=='national')return forbidden();
   return HttpResponse.json({scope:role,period:'Synthetic snapshot: 8 September 2026',updatedAt:'2026-09-08T09:00:00.000Z',monitoredVictims:1,openTasks:1,acknowledgedTasks:authorityTask.task.status==='ACKNOWLEDGED'?1:0,regions:[{name:role==='state'?'Pune':'Maharashtra',victims:1,openTasks:1}]});
