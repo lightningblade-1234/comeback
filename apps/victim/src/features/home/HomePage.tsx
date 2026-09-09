@@ -8,6 +8,7 @@ import {CalendarDays,CheckCircle2,ChevronRight,Clock3,HeartHandshake,Info,Messag
 import {DashboardLayout} from '../../legacy/components/DashboardLayout';
 import './home.css';
 import './home-overrides.css';
+import './urgent-help.css';
 
 type EmotionalFeeling='STEADY'|'LOW'|'ANXIOUS'|'OVERWHELMED'|'UNSURE';
 const feelingOptions:{value:EmotionalFeeling}[]=[{value:'STEADY'},{value:'LOW'},{value:'ANXIOUS'},{value:'OVERWHELMED'},{value:'UNSURE'}];
