@@ -81,8 +81,8 @@ export const Journal: React.FC = () => {
     <DashboardLayout userType="student" onCommunityToggle={() => setIsCommunityMode(true)}>
       <div className="space-y-6">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h1 className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
+          <div className="journal-intro glass-card">
+            <h1 className="text-3xl font-bold bg-gradient-haven bg-clip-text text-transparent">
               My Journal
             </h1>
             <p className="text-muted-foreground mt-2">
