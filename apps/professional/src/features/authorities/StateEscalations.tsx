@@ -1,0 +1,5 @@
+import {useQuery} from '@tanstack/react-query';
+import {api,queryKeys} from '@haven/api-client';
+import {Panel,Loading,ErrorState} from '@haven/ui';
+import {AuthorityPageHeader} from './AuthorityShared';
+export function StateEscalations(){const q=useQuery({queryKey:queryKeys.stateAnalytics,queryFn:api.stateAnalytics});if(q.isPending)return <Loading/>;if(q.isError)return <ErrorState message={q.error.message} onRetry={()=>void q.refetch()}/>;const total=q.data.districts.reduce((sum,item)=>sum+item.formalEscalations,0);return <><AuthorityPageHeader eyebrow="Maharashtra � State monitoring scope" title="Formal escalations">Review the aggregate escalation workload. Individual escalation records require separate authorization and are not present in this demo response.</AuthorityPageHeader><Panel title="Current escalation boundary"><div className="stat">{total}</div><p className="muted">Formal escalations across reporting districts in the synthetic replay.</p><p>There are no individually authorized escalation records in this session.</p></Panel></>;}

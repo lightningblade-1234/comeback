@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { type DemoRole,VictimHome,CounselorCase,CounselorCaseDetail,Appointment,AuthorityTask,Task,Monitoring,PriorityOverridePayload,ContactLogPayload,ClarificationPayload,SupportPlanPayload,EscalationPayload } from '@haven/contracts';
+import { type DemoRole,VictimHome,CounselorCase,CounselorCaseDetail,Appointment,AuthorityTask,Task,Monitoring,PriorityOverridePayload,ContactLogPayload,ClarificationPayload,SupportPlanPayload,EscalationPayload,DistrictAnalytics,DistrictAssistanceRequest,AssistanceUpdatePayload,StateAnalytics,NationalAnalytics } from '@haven/contracts';
 export class ApiError extends Error {constructor(public status:number,message:string){super(message);this.name='ApiError';}}
 async function request<T>(path:string,schema:z.ZodType<T>,role:DemoRole,method='GET',body?:unknown):Promise<T>{
  const options:RequestInit={method,headers:{'X-Demo-Role':role,'Content-Type':'application/json'}};
@@ -22,6 +22,11 @@ export const api={
  supervisionQueue:()=>request('/counselor/supervision',z.array(CounselorCaseDetail),'counselor'),
  authorityTasks:()=>request('/authority/tasks',z.array(AuthorityTask),'district'),
  acknowledge:(id:string)=>request('/authority/tasks/'+encodeURIComponent(id)+'/acknowledge',Task,'district','POST'),
+ districtAnalytics:()=>request('/authority/district-analytics',DistrictAnalytics,'district'),
+ districtAssistance:()=>request('/authority/district-assistance',z.array(DistrictAssistanceRequest),'district'),
+ updateDistrictAssistance:(id:string,payload:AssistanceUpdatePayload)=>request('/authority/district-assistance/'+encodeURIComponent(id)+'/update',DistrictAssistanceRequest,'district','POST',payload),
+ stateAnalytics:()=>request('/authority/state-analytics',StateAnalytics,'state'),
+ nationalAnalytics:()=>request('/authority/national-analytics',NationalAnalytics,'national'),
  monitoring:(role:'state'|'national')=>request('/monitoring',Monitoring,role),
 };
 export const queryKeys={
@@ -31,6 +36,10 @@ export const queryKeys={
  counselorAppointments:['counselor','appointments'] as const,
  supervisionQueue:['counselor','supervision'] as const,
  tasks:['district','tasks'] as const,
+ districtAnalytics:['district','analytics'] as const,
+ districtAssistance:['district','assistance'] as const,
+ stateAnalytics:['state','analytics'] as const,
+ nationalAnalytics:['national','analytics'] as const,
  monitoring:(role:string)=>[role,'monitoring'] as const
 };
 

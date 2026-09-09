@@ -1,0 +1,5 @@
+import {useQuery} from '@tanstack/react-query';
+import {api,queryKeys} from '@haven/api-client';
+import {Panel,Loading,ErrorState} from '@haven/ui';
+import {AuthorityPageHeader} from './AuthorityShared';
+export function NationalEscalations(){const q=useQuery({queryKey:queryKeys.nationalAnalytics,queryFn:api.nationalAnalytics});if(q.isPending)return <Loading/>;if(q.isError)return <ErrorState message={q.error.message} onRetry={()=>void q.refetch()}/>;const total=q.data.states.reduce((sum,item)=>sum+item.formalEscalations,0);return <><AuthorityPageHeader eyebrow="India � National monitoring scope" title="Exceptional escalations">Review aggregate escalation workload. Individual records require an exceptional approved purpose and are not returned by this demo.</AuthorityPageHeader><Panel title="Escalation access boundary"><div className="stat">{total}</div><p className="muted">Formal escalations across reporting states in the synthetic replay.</p><p>No individually authorized escalations are available in this session.</p></Panel></>;}

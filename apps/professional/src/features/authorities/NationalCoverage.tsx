@@ -1,0 +1,5 @@
+import {useQuery} from '@tanstack/react-query';
+import {api,queryKeys} from '@haven/api-client';
+import {Panel,Loading,ErrorState} from '@haven/ui';
+import {AuthorityPageHeader} from './AuthorityShared';
+export function NationalCoverage(){const q=useQuery({queryKey:queryKeys.nationalAnalytics,queryFn:api.nationalAnalytics});if(q.isPending)return <Loading/>;if(q.isError)return <ErrorState message={q.error.message} onRetry={()=>void q.refetch()}/>;return <><AuthorityPageHeader eyebrow="India � National monitoring scope" title="Coverage and response">Review configured reporting coverage and acknowledgement performance. These metrics do not claim delivered assistance or care outcomes.</AuthorityPageHeader><section className="grid">{q.data.performance.map(item=><Panel key={item.metric} title={item.metric}><div className="stat">{item.currentValue}/{item.denominator}</div><p className="muted">{item.label}</p></Panel>)}</section><Panel title="Coverage interpretation"><p>Reporting coverage is measured against the configured synthetic reporting-unit denominator. It must not be interpreted as population coverage, case prevalence, or service completion.</p></Panel></>;}

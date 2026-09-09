@@ -1,0 +1,10 @@
+import {Link} from 'react-router-dom';
+import {useQuery} from '@tanstack/react-query';
+import {api,queryKeys} from '@haven/api-client';
+import {Panel,Loading,ErrorState} from '@haven/ui';
+import {AuthorityPageHeader,PriorityBadge,StatusBadge,formatDateTime} from './AuthorityShared';
+export function AssignedCases(){
+ const q=useQuery({queryKey:queryKeys.tasks,queryFn:api.authorityTasks});
+ if(q.isPending)return <Loading/>;if(q.isError)return <ErrorState message={q.error.message} onRetry={()=>void q.refetch()}/>;
+ return <><AuthorityPageHeader eyebrow="Maharashtra / Pune · District assigned cases" title="Assigned cases">View operational case references and their linked authority tasks. This page does not disclose counseling content absent from the district response.</AuthorityPageHeader><Panel title="Case references">{q.data.length===0?<p className="muted">No assigned cases are available in this district scope.</p>:<div className="table-wrap" tabIndex={0}><table><caption>District cases with active authority work</caption><thead><tr><th scope="col">Docket</th><th scope="col">Case process</th><th scope="col">Authority task</th><th scope="col">Classification</th><th scope="col">Deadline</th></tr></thead><tbody>{q.data.map(item=><tr key={item.task.id}><th scope="row">{item.case.docket}<span className="authority-docket muted">{item.case.district}, {item.case.state}</span></th><td>{item.case.stage}</td><td><Link className="authority-inline-link" to={'/authorities/district/tasks/'+item.task.id}>{item.task.title}</Link><span className="authority-docket"><StatusBadge value={item.task.status}/></span></td><td><PriorityBadge value={item.task.priority}/></td><td>{formatDateTime(item.task.dueAt)}</td></tr>)}</tbody></table></div>}</Panel><Panel title="Disclosure note"><p className="muted">The current API returns an operational case reference, docket, district, state, case process, and linked task. It does not return private conversations or a full counseling record.</p></Panel></>;
+}
