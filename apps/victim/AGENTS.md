@@ -127,3 +127,59 @@ For each task: update main with git pull --ff-only, create a short-lived feature
 Coordinate changes to packages, root configuration, dependency versions, the shared lockfile and the professional shell. Request shared contract changes before implementing inconsistent local substitutes. State which workspace and files may be edited when assigning work to an AI assistant, and explicitly ask it to read the corresponding AGENTS.md.
 
 These scoped AGENTS.md files do not automatically govern packages/ or repository-root edits. For foundation or shared work, explicitly read both instruction files and follow their common stack and contract conventions.
+
+## Current implementation status: transitional frontend port
+
+The victim app currently contains a transitional port of the previous Haven frontend.
+
+The active runtime structure is:
+
+- `/` → `src/features/landing/LandingPage.tsx`
+- `/home` and `/talk` → `src/legacy/pages/PersonalCare.tsx`
+- `/journal` → `src/legacy/pages/Journal.tsx`
+- `/support` → `src/legacy/pages/BookSession.tsx`
+- `/more` → `src/legacy/pages/ResourcesAndSelfCare.tsx`
+
+The `src/legacy/` directory contains the newer `_1` variants copied from the previous Haven repository. These files are currently used for visual and structural continuity, including:
+
+- `DashboardLayout`
+- `Sidebar`
+- `InteractiveBackground`
+- `LoadingSpinner`
+- legacy UI primitives
+- the animated `background.gif`
+
+Treat this directory as a transitional visual baseline, not as the final product architecture.
+
+The legacy pages currently contain:
+
+- static demonstration data;
+- local component state;
+- browser-local journal storage;
+- donor student wording;
+- demonstration counselor/resource ratings and metadata;
+- simulated loading and booking flows;
+- no live NHAA connection;
+- no live analytical engine;
+- no production voice service;
+- no 3D companion;
+- no real emergency dispatch.
+
+Do not expand these limitations into new features. When a legacy page is rebuilt, move it toward the adult NHAA victim experience and the shared API/MSW boundary.
+
+The current `src/features/` pages are not the active source for the imported legacy routes unless `App.tsx` explicitly routes to them. Check `App.tsx` before changing or extending a page.
+
+### Transitional visual rules
+
+Preserve the current Haven shell while the victim frontend is being rebuilt:
+
+- dark navy/cyan visual language;
+- animated background;
+- translucent glass surfaces;
+- collapsed icon sidebar;
+- responsive layouts;
+- calm, readable contrast.
+
+Visual improvements may be made to the shell, but avoid globally changing shared professional-app styling. Do not copy the legacy pages' student-specific wording, fake wellness metrics, ratings, streaks, or unsupported claims into new production-facing screens.
+
+The normal data path for new or rebuilt screens is `screen → shared API client → MSW handler`. The currently imported legacy pages are an explicit transitional exception and may use local state or static fixtures. Do not add new business workflows to that legacy pattern.

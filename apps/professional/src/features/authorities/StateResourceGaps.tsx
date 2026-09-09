@@ -1,0 +1,5 @@
+import {useQuery} from '@tanstack/react-query';
+import {api,queryKeys} from '@haven/api-client';
+import {Panel,Loading,ErrorState} from '@haven/ui';
+import {AuthorityPageHeader} from './AuthorityShared';
+export function StateResourceGaps(){const q=useQuery({queryKey:queryKeys.stateAnalytics,queryFn:api.stateAnalytics});if(q.isPending)return <Loading/>;if(q.isError)return <ErrorState message={q.error.message} onRetry={()=>void q.refetch()}/>;return <><AuthorityPageHeader eyebrow="Maharashtra � State monitoring scope" title="Resource gaps">Track aggregate service availability signals that require coordination. A reported gap is not evidence that assistance was delivered or failed.</AuthorityPageHeader><section className="grid">{q.data.resourceGaps.map(item=><Panel key={item.service} title={item.service}><div className="stat">{item.openTasksAffected}</div><p className="muted">Open tasks affected across {item.districtsWithGap} reporting district{item.districtsWithGap===1?'':'s'}.</p><span className="badge">{item.status.replaceAll('_',' ')}</span></Panel>)}</section></>;}

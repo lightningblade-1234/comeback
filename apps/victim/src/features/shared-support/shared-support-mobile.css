@@ -1,0 +1,4 @@
+@media(max-width:700px){
+ .shared-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));overflow:visible}
+ .shared-nav a{min-width:0;padding-inline:.45rem;font-size:.8rem}
+}

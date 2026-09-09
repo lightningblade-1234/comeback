@@ -1,0 +1,12 @@
+import {Link} from 'react-router-dom';
+import {useQuery} from '@tanstack/react-query';
+import {api,queryKeys} from '@haven/api-client';
+import {Panel,Loading,ErrorState} from '@haven/ui';
+import {AuthorityPageHeader,PriorityBadge,StatusBadge,formatDateTime,taskIsOverdue} from './AuthorityShared';
+const escalationStates=['ACK_OVERDUE','DELIVERY_FAILED','ESCALATION_FAILED'];
+export function EscalationQueue(){
+ const q=useQuery({queryKey:queryKeys.tasks,queryFn:api.authorityTasks});
+ if(q.isPending)return <Loading/>;if(q.isError)return <ErrorState message={q.error.message} onRetry={()=>void q.refetch()}/>;
+ const tasks=q.data.filter(item=>taskIsOverdue(item)||escalationStates.includes(item.task.status));
+ return <><AuthorityPageHeader eyebrow="Maharashtra / Pune · District escalation queue" title="Escalation queue">Review overdue acknowledgement and failed-delivery signals that may need district escalation. Formal history is shown only when supplied by the response.</AuthorityPageHeader><Panel title="Requires attention">{tasks.length===0?<div className="authority-empty"><h2>No current escalation signals</h2><p className="muted">No overdue or failed-delivery tasks are available in this district scope.</p></div>:<div className="table-wrap" tabIndex={0}><table><caption>Tasks with current escalation signals</caption><thead><tr><th scope="col">Task</th><th scope="col">Classification</th><th scope="col">Signal</th><th scope="col">Deadline</th><th scope="col">Owner</th></tr></thead><tbody>{tasks.map(item=><tr key={item.task.id}><th scope="row"><Link className="authority-task-link" to={'/authorities/district/tasks/'+item.task.id}>{item.task.title}<span className="authority-docket muted">{item.case.docket}</span></Link></th><td><PriorityBadge value={item.task.priority}/></td><td>{taskIsOverdue(item)?<StatusBadge value="ACK_OVERDUE"/>:<StatusBadge value={item.task.status}/>}</td><td>{formatDateTime(item.task.dueAt)}</td><td>{item.task.owner}</td></tr>)}</tbody></table></div>}</Panel><Panel title="Escalation history"><p className="muted">The current response does not supply escalation events, previous attempts, or State handoff records. Those facts remain unknown rather than inferred from task status.</p></Panel></>;
+}

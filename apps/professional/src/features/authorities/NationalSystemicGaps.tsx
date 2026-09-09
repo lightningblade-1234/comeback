@@ -1,0 +1,5 @@
+import {useQuery} from '@tanstack/react-query';
+import {api,queryKeys} from '@haven/api-client';
+import {Panel,Loading,ErrorState} from '@haven/ui';
+import {AuthorityPageHeader} from './AuthorityShared';
+export function NationalSystemicGaps(){const q=useQuery({queryKey:queryKeys.nationalAnalytics,queryFn:api.nationalAnalytics});if(q.isPending)return <Loading/>;if(q.isError)return <ErrorState message={q.error.message} onRetry={()=>void q.refetch()}/>;return <><AuthorityPageHeader eyebrow="India � National monitoring scope" title="Systemic service gaps">Coordinate service-level issues across reporting states. This screen contains aggregate operational signals only.</AuthorityPageHeader><section className="grid">{q.data.systemicGaps.map(item=><Panel key={item.service} title={item.service}><div className="stat">{item.openTasksAffected}</div><p className="muted">Open tasks affected across {item.statesReportingGap} reporting state{item.statesReportingGap===1?'':'s'}.</p><span className="badge">{item.status.replaceAll('_',' ')}</span></Panel>)}</section></>;}
