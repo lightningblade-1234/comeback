@@ -10,7 +10,6 @@ import {ServiceCapacity} from './ServiceCapacity';
 import {EscalationQueue} from './EscalationQueue';
 import {ActionHistory} from './ActionHistory';
 import {DistrictTaskDetail} from './DistrictTaskDetail';
-import {MonitoringDashboard} from './MonitoringDashboard';
 import {StateOverview} from './StateOverview';
 import {StateDistrictComparison} from './StateDistrictComparison';
 import {StateResourceGaps} from './StateResourceGaps';
