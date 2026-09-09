@@ -1,1 +1,1 @@
-{"extends":"@haven/config/tsconfig","compilerOptions":{"types":["vite/client"]},"include":["src","vite.config.ts"]}
+{"extends":"@haven/config/tsconfig","compilerOptions":{"types":["vite/client"],"baseUrl":".","paths":{"@/*":["src/legacy/*"]}},"include":["src","vite.config.ts"]}

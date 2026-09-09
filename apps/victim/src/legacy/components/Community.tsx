@@ -1,0 +1,2 @@
+import {Button} from '@haven/ui';
+export function Community({onToggle}:{onToggle:()=>void}){return <div className="legacy-community"><div className="glass-card legacy-community__card"><div className="eyebrow">Shared Support</div><h1>Optional, protected connection</h1><p className="muted">Peer circles and trained mentor support will be available here after you choose to join. This demo keeps matching and moderation simulated.</p><Button onClick={onToggle}>Back to my support space</Button></div></div>}
