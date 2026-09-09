@@ -1,11 +1,13 @@
 import { http,HttpResponse,delay } from 'msw';
 import { type CounselorPriority, type ContactRecord } from '@haven/contracts';
-import { caseRecord,appointment,initialAuthorityTask,counselorCaseDetailsStore,counselorAppointmentsList,districtAnalytics,stateAnalytics,nationalAnalytics } from './fixtures';
+import { caseRecord,appointment,initialAuthorityTask,counselorCaseDetailsStore,counselorAppointmentsList,districtAnalytics,initialDistrictAssistance,stateAnalytics,nationalAnalytics } from './fixtures';
 let authorityTask=structuredClone(initialAuthorityTask);
+let districtAssistance=structuredClone(initialDistrictAssistance);
 let caseDetailsStore=structuredClone(counselorCaseDetailsStore);
 
 export function resetFixtures(){
  authorityTask=structuredClone(initialAuthorityTask);
+ districtAssistance=structuredClone(initialDistrictAssistance);
  caseDetailsStore=structuredClone(counselorCaseDetailsStore);
 }
 
@@ -142,6 +144,8 @@ export const handlers=[
   authorityTask={...authorityTask,task:{...authorityTask.task,status:'ACKNOWLEDGED'}};
   return HttpResponse.json(authorityTask.task);
  }),
+ http.get('*/api/authority/district-assistance',({request})=>{if(roleOf(request)!=='district')return forbidden();return HttpResponse.json(districtAssistance);}),
+ http.post('*/api/authority/district-assistance/:id/update',async({request,params})=>{if(roleOf(request)!=='district')return forbidden();const item=districtAssistance.find(entry=>entry.id===params.id);if(!item)return HttpResponse.json({message:'Assistance request not found.'},{status:404});const body=await request.json() as {state:string;note:string};const allowed:Record<string,string[]>={AWAITING_REVIEW:['APPROVED','DECLINED_BY_OFFICIAL'],APPROVED:['SCHEDULED','UNAVAILABLE'],SCHEDULED:['IN_PROGRESS','UNAVAILABLE'],IN_PROGRESS:['DELIVERED','FAILED']};if(!body.note||body.note.trim().length<3||!allowed[item.status]?.includes(body.state))return HttpResponse.json({message:'This assistance transition is not available.'},{status:409});item.status=body.state as typeof item.status;item.lastHumanNote=body.note.trim();if(body.state==='UNAVAILABLE'||body.state==='FAILED')item.serviceAvailable=false;return HttpResponse.json(item);}),
  http.get('*/api/authority/district-analytics',({request})=>{if(roleOf(request)!=='district')return forbidden();return HttpResponse.json(districtAnalytics);}),
  http.get('*/api/authority/state-analytics',({request})=>{if(roleOf(request)!=='state')return forbidden();return HttpResponse.json(stateAnalytics);}),
  http.get('*/api/authority/national-analytics',({request})=>{if(roleOf(request)!=='national')return forbidden();return HttpResponse.json(nationalAnalytics);}),

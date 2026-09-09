@@ -3,6 +3,7 @@ import {Access} from '../../session';
 import {AuthorityLanding,type WorkspaceRole} from './AuthorityLanding';
 import './authorities.css';
 import {DistrictOverview} from './DistrictOverview';
+import {DistrictAssistance} from './DistrictAssistance';
 import {AlertCentre} from './AlertCentre';
 import {InterventionQueue} from './InterventionQueue';
 import {AssignedCases} from './AssignedCases';
@@ -23,6 +24,7 @@ import {NationalEscalations} from './NationalEscalations';
 export function createAuthorityRoutes(onSelect:(role:WorkspaceRole)=>void):RouteObject[]{return [
  {path:'/authorities',element:<Access roles={['counselor','district','state','national']}><AuthorityLanding onSelect={onSelect}/></Access>},
  {path:'/authorities/district',element:<Access roles={['district']}><DistrictOverview/></Access>},
+ {path:'/authorities/district/assistance',element:<Access roles={['district']}><DistrictAssistance/></Access>},
  {path:'/authorities/district/alerts',element:<Access roles={['district']}><AlertCentre/></Access>},
  {path:'/authorities/district/interventions',element:<Access roles={['district']}><InterventionQueue/></Access>},
  {path:'/authorities/district/cases',element:<Access roles={['district']}><AssignedCases/></Access>},

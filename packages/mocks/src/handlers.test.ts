@@ -11,5 +11,13 @@ describe('demo contracts and disclosure',()=>{
  it('provides state analytics without individual case content',async()=>{const response=await get('/authority/state-analytics','state');expect(response.status).toBe(200);const body=await response.json();expect(body.districts).toHaveLength(4);expect(JSON.stringify(body)).not.toContain('Riya');expect(JSON.stringify(body)).not.toContain('DEMO-NHAA');});
  it('provides national analytics without individual case content',async()=>{const response=await get('/authority/national-analytics','national');expect(response.status).toBe(200);const body=await response.json();expect(body.states).toHaveLength(4);expect(JSON.stringify(body)).not.toContain('Riya');expect(JSON.stringify(body)).not.toContain('DEMO-NHAA');});
  it('acknowledges once without claiming delivery',async()=>{const send=()=>fetch('http://localhost/api/authority/tasks/task-demo-001/acknowledge',{method:'POST',headers:{'X-Demo-Role':'district'}});const result=await send();expect(result.status).toBe(200);expect((await result.json()).status).toBe('ACKNOWLEDGED');expect((await send()).status).toBe(409);});
-});
+ it('keeps assistance requests district-scoped and requires a human-confirmed transition',async()=>{
+  expect((await get('/authority/district-assistance','state')).status).toBe(403);
+  const invalid=await fetch('http://localhost/api/authority/district-assistance/assist-demo-001/update',{method:'POST',headers:{'X-Demo-Role':'district','Content-Type':'application/json'},body:JSON.stringify({state:'DELIVERED',note:'Done'})});
+  expect(invalid.status).toBe(409);
+  const valid=await fetch('http://localhost/api/authority/district-assistance/assist-demo-001/update',{method:'POST',headers:{'X-Demo-Role':'district','Content-Type':'application/json'},body:JSON.stringify({state:'APPROVED',note:'Protection review approved for demo coordination.'})});
+  expect(valid.status).toBe(200);
+  expect((await valid.json()).status).toBe('APPROVED');
+ });
 
+});
