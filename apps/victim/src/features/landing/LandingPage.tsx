@@ -21,9 +21,9 @@ export function LandingPage(){
   <main className="haven-legacy-landing__main">
    <section className="haven-legacy-landing__hero">
     <div>
-     <h1>Your Mental Health Journey Starts Here</h1>
-     <p>A safe, supportive platform designed for students to take control of their mental wellbeing. Connect with professional counselors, track your mood, and access a wealth of resources, all in one place.</p>
-     <div><Button className="haven-legacy-landing__cta" onClick={()=>navigate('/home')}>Get Started</Button></div>
+     <h1>A safe space for you.</h1>
+     <p>Talk with Haven, reflect in your journal, or connect with a counselor. Find practical resources and support throughout your case and beyond, at your pace. Haven is an AI support companion, with connections to human support.</p>
+     <div><Button className="haven-legacy-landing__cta" onClick={()=>navigate('/home')}>Connect with Haven</Button></div>
     </div>
    </section>
   </main>
@@ -31,8 +31,8 @@ export function LandingPage(){
   <footer className="haven-legacy-landing__footer">
    <div>
     <div className="haven-legacy-landing__footer-brand"><HeartIcon/><h2>Haven</h2></div>
-    <p>Supporting student mental health with compassionate, professional care.</p>
-    <p className="haven-legacy-landing__copyright">© 2024 Haven. All rights reserved.</p>
+    <p>A space for conversation, reflection, and support along the way.</p>
+    <p className="haven-legacy-landing__copyright">© 2026 Haven. All rights reserved.</p>
    </div>
   </footer>
  </div>;
